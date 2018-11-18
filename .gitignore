@@ -22,10 +22,9 @@ src/DB/Migrations/migration.sql
 *.sqlite
 UpgradeLog3.htm
 /vs
+/.vs
 /node_modules
-/.vs/Fluxys.Cessna/v15/Server/sqlite3/storage.ide
-/.vs/Fluxys.Cessna/v15/Server/sqlite3
-/.vs/Fluxys.Cessna/v15/sqlite3
+
 
 tools/Addins/
 
