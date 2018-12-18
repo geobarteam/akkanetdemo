@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MovieStreaming.Exceptions
+namespace MovieStreaming.Common.Exceptions
 {
     public class SimulatedCorruptStateException : Exception
     {

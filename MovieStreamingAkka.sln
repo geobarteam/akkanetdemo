@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStreamingAkka", "MovieStreamingAkka\MovieStreamingAkka.csproj", "{750016D9-AB22-4960-B9B1-E161CCD1E429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStreamingAkka", "MovieStreamingAkka\MovieStreamingAkka.csproj", "{750016D9-AB22-4960-B9B1-E161CCD1E429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moviestreaming.Remote", "Moviestreaming.Remote\Moviestreaming.Remote.csproj", "{CEE8DDA4-955D-458B-99E0-7FAB1D5C5120}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStreaming.Common", "MovieStreaming.Common\MovieStreaming.Common.csproj", "{24A9F5DE-7B14-4E73-A564-5FD3BD322F12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{750016D9-AB22-4960-B9B1-E161CCD1E429}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{750016D9-AB22-4960-B9B1-E161CCD1E429}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{750016D9-AB22-4960-B9B1-E161CCD1E429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEE8DDA4-955D-458B-99E0-7FAB1D5C5120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE8DDA4-955D-458B-99E0-7FAB1D5C5120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE8DDA4-955D-458B-99E0-7FAB1D5C5120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE8DDA4-955D-458B-99E0-7FAB1D5C5120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A9F5DE-7B14-4E73-A564-5FD3BD322F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A9F5DE-7B14-4E73-A564-5FD3BD322F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A9F5DE-7B14-4E73-A564-5FD3BD322F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A9F5DE-7B14-4E73-A564-5FD3BD322F12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

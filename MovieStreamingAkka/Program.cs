@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using Akka.Actor;
-using MovieStreaming.Actors;
-using MovieStreamingAkka.Messages;
+using Akka.Configuration;
+using MovieStreaming.Common;
+using MovieStreaming.Common.Actors;
+using MovieStreaming.Common.Messages;
 
 namespace MovieStreamingAkka
 {
@@ -12,8 +15,11 @@ namespace MovieStreamingAkka
 
         static void Main(string[] args)
         {
+            var hoconString = File.ReadAllText(".\\Akka.config");
+            var cfg = ConfigurationFactory.ParseString(hoconString);
+
             ColorConsole.WriteLine(ConsoleColor.Gray, "Creating MovieActorSystem");
-            MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem");
+            MovieStreamingActorSystem = ActorSystem.Create("MovieStreamingActorSystem", cfg);
 
             ColorConsole.WriteLine(ConsoleColor.Gray, "Creating actor supervisory hierarchy");
             MovieStreamingActorSystem.ActorOf(Props.Create<PlaybackActor>(), "Playback");

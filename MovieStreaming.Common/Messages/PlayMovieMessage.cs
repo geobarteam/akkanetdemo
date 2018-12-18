@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MovieStreamingAkka.Messages
+﻿namespace MovieStreaming.Common.Messages
 {
     public class PlayMovieMessage
     {
