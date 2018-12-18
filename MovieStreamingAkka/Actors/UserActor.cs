@@ -1,66 +1,91 @@
 ﻿using System;
 using Akka.Actor;
+using MovieStreaming.Messages;
+using MovieStreamingAkka;
 using MovieStreamingAkka.Messages;
 
-namespace MovieStreamingAkka.Actors
+namespace MovieStreaming.Actors
 {
     public class UserActor : ReceiveActor
     {
+        private readonly int _userId;
         private string _currentlyWatching;
 
-        public UserActor()
+        public UserActor(int userId)
         {
-            Console.WriteLine("Creating a PlaybackActor");
-            ColorConsole.WriteLineBlue("Setting initial behavior to Stopped!");
+            _userId = userId;
+
             Stopped();
         }
 
-        void Playing()
+        private void Playing()
         {
-            Receive<PlayMovieMessage>(message =>
-                ColorConsole.WriteLineRed("Error: cannot start a movie when one is playing!"));
-            Receive<StopMovieMessage>(message => StopPlayingMovie());
+            Receive<PlayMovieMessage>(
+                message => ColorConsole.WriteLineRed(
+                    $"UserActor {_userId} Error: cannot start playing another movie before stopping existing one"));
+           
+            Receive<StopMovieMessage>(message => StopPlayingCurrentMovie());
+
+            ColorConsole.WriteLineYellow($"UserActor {_userId} has now become Playing");
         }
 
-        void Stopped()
+        private void Stopped()
         {
-            Receive<PlayMovieMessage>(message => StartPlayTheMovie(message.MovieTitle));
-            Receive<StopMovieMessage>(message =>
-                ColorConsole.WriteLineRed("Error: Can't stop watching a movie when no movie is playing!"));
-        }
+            Receive<PlayMovieMessage>(message => StartPlayingMovie(message.MovieTitle));
+          
+            Receive<StopMovieMessage>(
+                message => ColorConsole.WriteLineRed($"UserActor {_userId} Error: cannot stop if nothing is playing"));
 
-       
-        private void StartPlayTheMovie(string title)
+            ColorConsole.WriteLineYellow($"UserActor {_userId} has now become Stopped");
+        }
+        
+        private void StartPlayingMovie(string title)
         {
             _currentlyWatching = title;
-            ColorConsole.WriteLineBlue($"User is currently watching '{_currentlyWatching}");
+
+            ColorConsole.WriteLineYellow($"UserActor {_userId} is currently watching '{_currentlyWatching}'");
+
+            Context.ActorSelection("/user/Playback/PlaybackStatistics/MoviePlayCounter")
+                .Tell(new IncrementPlayCountMessage(title));
 
             Become(Playing);
-        }      
+        }
 
-        private void StopPlayingMovie()
+        private void StopPlayingCurrentMovie()
         {
-            ColorConsole.WriteLine(ConsoleColor.Yellow, $"Stopping playing movie {_currentlyWatching}!");
+            ColorConsole.WriteLineYellow($"UserActor {_userId} has stopped watching '{_currentlyWatching}'");
+
             _currentlyWatching = null;
 
             Become(Stopped);
         }
 
+
+
+        #region Lifecycle hooks
         protected override void PreStart()
         {
-            ColorConsole.WriteLineGreen("UserActor PreStart");
+            ColorConsole.WriteLineYellow($"UserActor {_userId} PreStart");
         }
 
         protected override void PostStop()
         {
-            ColorConsole.WriteLineGreen("UserActor PostStop");
-            base.PostStop();
+            ColorConsole.WriteLineYellow($"UserActor {_userId} PostStop");
         }
 
         protected override void PreRestart(Exception reason, object message)
         {
-            ColorConsole.WriteLineGreen("UserActor PreRestart because:" + reason);
+            ColorConsole.WriteLineYellow($"UserActor {_userId} PreRestart because: {reason}");
+
             base.PreRestart(reason, message);
         }
+
+        protected override void PostRestart(Exception reason)
+        {
+            ColorConsole.WriteLineYellow($"UserActor {_userId} PostRestart because: {reason}");
+
+            base.PostRestart(reason);
+        } 
+        #endregion
     }
 }

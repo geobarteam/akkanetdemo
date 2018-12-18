@@ -29,5 +29,18 @@ namespace MovieStreamingAkka
 
         public static void WriteLineRed(string line)
             => WriteLine(ConsoleColor.Red, line);
+
+        public static void WriteLineGray(string line)
+            => WriteLine(ConsoleColor.Gray, line);
+
+        public static void WriteLineWhite(string line)
+            => WriteLine(ConsoleColor.White, line);
+
+        public static void WriteLineCyan(string line)
+            => WriteLine(ConsoleColor.Cyan, line);
+
+        public static void WriteMagenta(string line)
+            => WriteLine(ConsoleColor.Magenta, line);
+
     }
 }
