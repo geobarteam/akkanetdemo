@@ -1,5 +1,6 @@
 ﻿using System;
 using Akka.Actor;
+using MovieStreaming.Common.Exceptions;
 
 namespace MovieStreaming.Common.Actors
 {
@@ -10,6 +11,26 @@ namespace MovieStreaming.Common.Actors
             Context.ActorOf(Props.Create<MoviePlayCounterActor>(), "MoviePlayCounter");
         }
 
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            return new OneForOneStrategy(
+                maxNrOfRetries: 10,
+                withinTimeRange: TimeSpan.FromMinutes(1),
+                localOnlyDecider: ex =>
+                {
+                    switch (ex)
+                    {
+                        case SimulatedTerribleMovieException se:
+                            return Directive.Resume;
+                        case SimulatedCorruptStateException ce:
+                            return Directive.Restart;
+                        default:
+                            return Directive.Escalate;
+                    }
+                }
+
+            );
+        }
 
         #region Lifecycle hooks
 
