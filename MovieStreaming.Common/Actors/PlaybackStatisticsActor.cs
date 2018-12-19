@@ -1,6 +1,5 @@
 ﻿using System;
 using Akka.Actor;
-using Akka.Routing;
 
 namespace MovieStreaming.Common.Actors
 {
@@ -8,8 +7,7 @@ namespace MovieStreaming.Common.Actors
     {
         public PlaybackStatisticsActor()
         {
-            var props = Props.Create<MoviePlayCounterActor>().WithRouter(new RoundRobinPool(5));
-            Context.ActorOf(props, "MoviePlayCounter");
+            Context.ActorOf(Props.Create<MoviePlayCounterActor>(), "MoviePlayCounter");
         }
 
 
